@@ -1,15 +1,13 @@
 <template>
-  <hello-world />
+    <div>
+        <login />
+    </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import Login from "../components/Login.vue";
 
-  export default {
-    name: 'Home',
-
-    components: {
-      HelloWorld,
-    },
-  }
+export default {
+    components: { Login },
+};
 </script>
