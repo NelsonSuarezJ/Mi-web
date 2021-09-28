@@ -12,9 +12,15 @@ const routes = [
   },
 
   {
-    path: '/conductor',
+    path: '/user',
     name: 'Conductor',
     component: () => import(/* webpackChunkName: "about" */ '../views/Conductor.vue')
+  },
+
+  {
+    path: '/admin',
+    name: 'Administrador',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Administrador.vue')
   }
 
   // {
