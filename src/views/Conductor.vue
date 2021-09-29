@@ -1,5 +1,7 @@
 <template>
-    <h1>Conductor</h1>
+    <v-container>
+        <h1>Conductor</h1>
+    </v-container>
 </template>
 
 <script>

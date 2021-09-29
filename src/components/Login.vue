@@ -1,8 +1,8 @@
 <template>
-    <v-container>
-        <v-img src="../assets/fondo.png" alt="fondo-login" contain>
-            <v-row align="center" class="mt-10">
-                <v-col>
+    <v-img src="../assets/fondo.png" alt="fondo-login" max-height="1000">
+        <v-row align="center">
+            <v-col>
+                <v-form>
                     <v-card
                         max-width="500"
                         class="mx-auto pa-10"
@@ -20,6 +20,7 @@
                                     hint="Correo con el que se registro"
                                     v-model="email"
                                     @change="cambiarUrl"
+                                    autocomplete="username"
                                 ></v-text-field>
                             </v-row>
                             <v-row>
@@ -29,6 +30,7 @@
                                     hint="No comparta sus contraseñas"
                                     v-model="password"
                                     @change="cambiarUrl"
+                                    autocomplete="current-password"
                                 ></v-text-field>
                             </v-row>
                         </v-card-text>
@@ -62,10 +64,10 @@
                             </p>
                         </v-alert>
                     </v-card>
-                </v-col>
-            </v-row>
-        </v-img>
-    </v-container>
+                </v-form>
+            </v-col>
+        </v-row>
+    </v-img>
 </template>
 
 

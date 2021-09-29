@@ -1,13 +1,15 @@
 <template>
-    <div>
+    <v-container>
+        <barra-login />
         <login />
-    </div>
+    </v-container>
 </template>
 
 <script>
+import BarraLogin from "../components/BarraLogin.vue";
 import Login from "../components/Login.vue";
 
 export default {
-    components: { Login },
+    components: { Login, BarraLogin },
 };
 </script>
