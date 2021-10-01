@@ -7,8 +7,13 @@
 
 <script>
 import BarraAdmin from "../components/BarraAdmin.vue";
+
 export default {
+    name: "Administrador",
     components: { BarraAdmin },
+    data() {
+        return {};
+    },
 };
 </script>
 

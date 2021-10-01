@@ -2,8 +2,8 @@
     <v-card>
         <v-app-bar bar prominent dark color="orange" dense>
             <div>
-                <router-link to="/admin">
-                    <v-img width="100" src="../assets/logo1.png"></v-img>
+                <router-link to="/administrador">
+                    <v-img width="100" src="../assets/logo.png"></v-img>
                 </router-link>
             </div>
 

@@ -8,28 +8,43 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    redirect: '/login',
+    children: [
+      {
+        path: 'login',
+        name: 'HomeLogin',
+        component: () => import(/* webpackChunkName: "about" */ '../views/HomeLogin.vue')
+      },
+      ,
+
+      {
+        path: 'equipo',
+        name: 'Equipo',
+        component: () => import(/* webpackChunkName: "about" */ '../views/HomeEquipo.vue')
+      }
+    ]
   },
 
   {
-    path: '/user',
+    path: '/conductor',
     name: 'Conductor',
     component: () => import(/* webpackChunkName: "about" */ '../views/Conductor.vue')
   },
 
   {
-    path: '/admin',
+    path: '/administrador',
     name: 'Administrador',
     component: () => import(/* webpackChunkName: "about" */ '../views/Administrador.vue')
   }
+
   ,
 
   {
-    path: '/equipo',
-    name: 'Equipo',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Equipo.vue')
+    path: '/superadmin',
+    name: 'SuperAdmin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SuperAdmin.vue')
   }
-
 ]
 
 const router = new VueRouter({

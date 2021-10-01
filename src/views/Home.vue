@@ -1,15 +1,18 @@
 <template>
-    <v-container>
-        <barra-login />
-        <login />
-    </v-container>
+    <div>
+        <barra-inicio />
+        <v-main class="grey lighten-2">
+            <v-container class="py-0">
+                <router-view></router-view>
+            </v-container>
+        </v-main>
+    </div>
 </template>
 
 <script>
-import BarraLogin from "../components/BarraLogin.vue";
-import Login from "../components/Login.vue";
+import BarraInicio from "../components/BarraInicio.vue";
 
 export default {
-    components: { Login, BarraLogin },
+    components: { BarraInicio },
 };
 </script>
