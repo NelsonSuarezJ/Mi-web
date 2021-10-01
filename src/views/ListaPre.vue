@@ -1,13 +1,12 @@
 <template>
-    <v-container>
-        <h1>Administrador</h1>
-    </v-container>
+    <div>
+        <h1>Lista Preoperacional</h1>
+    </div>
 </template>
 
 <script>
 export default {
-    name: "Administrador",
-    components: {},
+    name: "ListaPre",
     data() {
         return {};
     },

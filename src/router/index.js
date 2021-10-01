@@ -29,7 +29,22 @@ const routes = [
   {
     path: '/conductor',
     name: 'Conductor',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Conductor.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Conductor.vue'),
+    redirect: '/conductor/formpre',
+    children: [
+      {
+        path: 'formpre',
+        name: 'FormPre',
+        component: () => import(/* webpackChunkName: "about" */ '../views/FormPre.vue')
+      },
+      ,
+
+      {
+        path: 'listapre',
+        name: 'ListaPre',
+        component: () => import(/* webpackChunkName: "about" */ '../views/ListaPre.vue')
+      }
+    ]
   },
 
   {
