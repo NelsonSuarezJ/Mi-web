@@ -78,7 +78,7 @@ export default {
                 {
                     icono: "mdi-shield-account-outline",
                     texto: "Administradores",
-                    url: "",
+                    url: "/administrador/adminadmin",
                 },
                 {
                     icono: "mdi-logout",
