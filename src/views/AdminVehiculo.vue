@@ -30,33 +30,33 @@
                         <v-card-text>
                             <v-container>
                                 <v-row>
-                                    <v-col cols="12" sm="6" md="4">
+                                    <v-col cols="12" sm="6">
                                         <v-text-field
                                             v-model="editedItem.placa"
                                             label="Placa"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6" md="4">
+                                    <v-col cols="12" sm="6">
                                         <v-text-field
                                             v-model="editedItem.kilometraje"
                                             label="Kilometraje"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6" md="4">
+                                    <v-col cols="12" sm="6">
                                         <v-text-field
                                             v-model="editedItem.tecnomecanica"
                                             label="Tecnomecanica"
                                             type="date"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6" md="4">
+                                    <v-col cols="12" sm="6">
                                         <v-text-field
                                             v-model="editedItem.soat"
                                             label="SOAT"
                                             type="date"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6" md="4">
+                                    <v-col cols="12" sm="6">
                                         <v-text-field
                                             v-model="editedItem.tarjeta"
                                             label="Tarjeta de propiedad"
@@ -134,8 +134,8 @@ export default {
         editedItem: {
             placa: "",
             kilometraje: 0,
-            tecnomecanica: 0,
-            soat: 0,
+            tecnomecanica: "",
+            soat: "",
             tarjeta: 0,
         },
         defaultItem: {
