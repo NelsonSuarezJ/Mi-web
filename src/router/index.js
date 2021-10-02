@@ -55,7 +55,7 @@ const routes = [
     children: [
       {
         path: 'listapre',
-        name: 'ListaPre',
+        name: 'ListaPreAd',
         component: () => import(/* webpackChunkName: "about" */ '../views/ListaPre.vue')
       },
       {
