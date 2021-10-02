@@ -1,13 +1,19 @@
 <template>
-    <v-container>
-        <h1>Administrador</h1>
-    </v-container>
+    <div>
+        <barra-admin />
+        <v-main class="grey lighten-2">
+            <v-container>
+                <router-view></router-view>
+            </v-container>
+        </v-main>
+    </div>
 </template>
 
 <script>
+import BarraAdmin from "../components/BarraAdmin.vue";
 export default {
     name: "Administrador",
-    components: {},
+    components: { BarraAdmin },
     data() {
         return {};
     },

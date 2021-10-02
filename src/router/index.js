@@ -50,11 +50,27 @@ const routes = [
   {
     path: '/administrador',
     name: 'Administrador',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Administrador.vue')
-  }
-
-  ,
-
+    component: () => import(/* webpackChunkName: "about" */ '../views/Administrador.vue'),
+    redirect: '/administrador/listapre',
+    children: [
+      {
+        path: 'listapre',
+        name: 'ListaPre',
+        component: () => import(/* webpackChunkName: "about" */ '../views/ListaPre.vue')
+      },
+      {
+        path: 'adminvehiculo',
+        name: 'AdminVehiculo',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AdminVehiculo.vue')
+      },
+      ,
+      {
+        path: 'adminconductor',
+        name: 'AdminConductor',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AdminConductor.vue')
+      }
+    ]
+  },
   {
     path: '/superadmin',
     name: 'SuperAdmin',
