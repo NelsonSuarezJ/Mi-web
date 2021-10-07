@@ -1,203 +1,159 @@
 <template>
-    <div>
-        <v-data-table
-            :headers="encabezados"
-            :items="listaPreop"
-            sort-by="fecha"
-            class="elevation-1"
-        >
-            <template v-slot:top>
-                <v-toolbar flat>
-                    <v-toolbar-title>Lista Preoperacional</v-toolbar-title>
-                    <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog" max-width="500px">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                                color="primary"
-                                dark
-                                class="mb-2"
-                                v-bind="attrs"
-                                v-on="on"
-                            >
-                                New Item
+    <v-data-table
+        :headers="headers"
+        :items="preoperacional"
+        sort-by=""
+        class="elevation-1"
+    >
+        <template v-slot:top>
+            <v-toolbar flat>
+                <v-toolbar-title>Lista preoperacional</v-toolbar-title>
+                <v-divider class="mx-4" inset vertical></v-divider>
+                <v-spacer></v-spacer>
+                <v-dialog v-model="dialog" max-width="500px">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            color="primary"
+                            dark
+                            class="mb-2"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            Nuevo registro
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-title>
+                            <span class="text-h5">{{ formTitle }}</span>
+                        </v-card-title>
+
+                        <v-card-text>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field
+                                            v-model="editedItem.placa"
+                                            label="Placa"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field
+                                            v-model="editedItem.kilometraje"
+                                            label="Kilometraje"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field
+                                            v-model="editedItem.tecnomecanica"
+                                            label="Tecnomecanica"
+                                            type="date"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field
+                                            v-model="editedItem.soat"
+                                            label="SOAT"
+                                            type="date"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field
+                                            v-model="editedItem.tarjeta"
+                                            label="Tarjeta de propiedad"
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" text @click="close">
+                                Cancelar
                             </v-btn>
-                        </template>
-                        <v-card>
-                            <v-card-title>
-                                <span class="text-h5">{{ formTitle }}</span>
-                            </v-card-title>
-
-                            <v-card-text>
-                                <v-container>
-                                    <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.id"
-                                                label="Dessert name"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.fecha"
-                                                label="fecha"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.lucesd"
-                                                label="lucesd (g)"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.lucest"
-                                                label="lucest (g)"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="
-                                                    editedItem.limpiabrisas
-                                                "
-                                                label="limpiabrisas (g)"
-                                            ></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                    color="blue darken-1"
-                                    text
-                                    @click="close"
-                                >
-                                    Cancel
-                                </v-btn>
-                                <v-btn color="blue darken-1" text @click="save">
-                                    Save
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                    <v-dialog v-model="dialogDelete" max-width="500px">
-                        <v-card>
-                            <v-card-title class="text-h5"
-                                >Are you sure you want to delete this
-                                item?</v-card-title
+                            <v-btn color="blue darken-1" text @click="save">
+                                Guardar
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+                <v-dialog v-model="dialogDelete" max-width="500px">
+                    <v-card>
+                        <v-card-title class="text-h5"
+                            >¿Esta seguro que desea eliminar los datos del
+                            registro?</v-card-title
+                        >
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="closeDelete"
+                                >Cancelar</v-btn
                             >
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                    color="blue darken-1"
-                                    text
-                                    @click="closeDelete"
-                                    >Cancel</v-btn
-                                >
-                                <v-btn
-                                    color="blue darken-1"
-                                    text
-                                    @click="deleteItemConfirm"
-                                    >OK</v-btn
-                                >
-                                <v-spacer></v-spacer>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                </v-toolbar>
-            </template>
-            <template v-slot:item.actions="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
-                    mdi-pencil
-                </v-icon>
-                <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-            </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize"> Reset </v-btn>
-            </template>
-        </v-data-table>
-    </div>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="deleteItemConfirm"
+                                >OK</v-btn
+                            >
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-toolbar>
+        </template>
+        <template v-slot:item.actions="{ item }">
+            <v-icon small class="mr-2" @click="editItem(item)">
+                mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        </template>
+        <template v-slot:no-data>
+            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+        </template>
+    </v-data-table>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "ListaPre",
     data: () => ({
         dialog: false,
         dialogDelete: false,
-        encabezados: [
-            {
-                text: "Id",
-                align: "start",
-                sortable: false,
-                value: "id",
-            },
-            { text: "Fecha", value: "fecha" },
-            { text: "Luces delanteras", value: "lucesd" },
-            { text: "Luces traseras", value: "lucest" },
-            { text: "Brazos limpia brisas", value: "limpiabrisas" },
-            { text: "Placa del vehiculo", value: "placa" },
-            { text: "Tapa de gasolina", value: "tapa" },
-            { text: "Apoya cabezas", value: "apoyac" },
-            { text: "Pito o Bocina", value: "bocina" },
-            { text: "Frenos", value: "frenos" },
-            { text: "Freno de emergencia", value: "frenose" },
-            { text: "Espejos retrovisores", value: "espejos" },
-            { text: "Extintor presurizado y vigente", value: "extintor" },
-            { text: "Linterna / Lampara para bateria", value: "linterna" },
-            { text: "Banderolas o triangulos", value: "banderolas" },
-            { text: "Gato hidraulico o mecanico", value: "gato" },
-            { text: "Palanca del gato", value: "palancag" },
-
-            { text: "Actions", value: "actions", sortable: false },
+        headers: [
+            { text: "Placa", value: "placa" },
+            { text: "Kilometraje", value: "kilometraje" },
+            { text: "Tecnomecanica", value: "tecnomecanica" },
+            { text: "SOAT", value: "soat" },
+            { text: "Tarjeta de propiedad", value: "tarjeta" },
+            { text: "Acciones", value: "actions", sortable: false },
         ],
-        listaPreop: [],
+        preoperacional: [],
         editedIndex: -1,
         editedItem: {
-            id: "",
-            fecha: 0,
-            lucesd: 0,
-            lucest: 0,
-            limpiabrisas: 0,
-            placa: 0,
-            tapa: 0,
-            apoyac: 0,
-            bocina: 0,
-            frenos: 0,
-            frenose: 0,
-            espejos: 0,
-            extintor: 0,
-            linterna: 0,
-            banderolas: 0,
-            gato: 0,
-            palancag: 0,
+            placa: "",
+            kilometraje: 0,
+            tecnomecanica: "",
+            soat: "",
+            tarjeta: 0,
         },
         defaultItem: {
-            id: "",
-            fecha: 0,
-            lucesd: 0,
-            lucest: 0,
-            limpiabrisas: 0,
-            placa: 0,
-            tapa: 0,
-            apoyac: 0,
-            bocina: 0,
-            frenos: 0,
-            frenose: 0,
-            espejos: 0,
-            extintor: 0,
-            linterna: 0,
-            banderolas: 0,
-            gato: 0,
-            palancag: 0,
+            placa: "",
+            kilometraje: "",
+            tecnomecanica: "",
+            soat: "",
+            tarjeta: "",
         },
     }),
 
     computed: {
         formTitle() {
-            return this.editedIndex === -1 ? "New Item" : "Edit Item";
+            return this.editedIndex === -1
+                ? "Nuevo vehiculo"
+                : "Editar vehiculo";
         },
     },
 
@@ -216,138 +172,45 @@ export default {
 
     methods: {
         initialize() {
-            this.listaPreop = [
+            this.preoperacional = [
                 {
-                    id: "ab01",
-                    fecha: "01/10/2021",
-                    lucesd: "Perfecto estado",
-                    lucest: "Perfecto estado",
-                    limpiabrisas: "Requiere reparacion",
-                    placa: "Perfecto estado",
-                    tapa: "Perfecto estado",
-                    apoyac: "Perfecto estado",
-                    bocina: "Perfecto estado",
-                    frenos: "Perfecto estado",
-                    frenose: "Requiere reparacion",
-                    espejos: "Perfecto estado",
-                    extintor: "Perfecto estado",
-                    linterna: "Requiere mantenimiento",
-                    banderolas: "Perfecto estado",
-                    gato: "Perfecto estado",
-                    palancag: "Perfecto estado",
+                    placa: "ABC123",
+                    kilometraje: 123456,
+                    tecnomecanica: "2025-08-01",
+                    soat: "2024-10-22",
+                    tarjeta: 578452355,
                 },
                 {
-                    id: "ab02",
-                    fecha: "02/10/2021",
-                    lucesd: "Requiere reparacion",
-                    lucest: "Perfecto estado",
-                    limpiabrisas: "Perfecto estado",
-                    placa: "Requiere mantenimiento",
-                    tapa: "Perfecto estado",
-                    apoyac: "Perfecto estado",
-                    bocina: "Perfecto estado",
-                    frenos: "Requiere mantenimiento",
-                    frenose: "Perfecto estado",
-                    espejos: "Perfecto estado",
-                    extintor: "Perfecto estado",
-                    linterna: "Requiere reparacion",
-                    banderolas: "Perfecto estado",
-                    gato: "Perfecto estado",
-                    palancag: "Perfecto estado",
+                    placa: "CDE456",
+                    kilometraje: 234567,
+                    tecnomecanica: "2022-01-02",
+                    soat: "2022-12-24",
+                    tarjeta: 475689121,
                 },
                 {
-                    id: "ab03",
-                    fecha: "03/10/2021",
-                    lucesd: "Requiere mantenimiento",
-                    lucest: "Requiere reparacion",
-                    limpiabrisas: "Requiere reparacion",
-                    placa: "Perfecto estado",
-                    tapa: "Perfecto estado",
-                    apoyac: "Perfecto estado",
-                    bocina: "Requiere reparacion",
-                    frenos: "Perfecto estado",
-                    frenose: "Perfecto estado",
-                    espejos: "Perfecto estado",
-                    extintor: "Requiere mantenimiento",
-                    linterna: "Perfecto estado",
-                    banderolas: "Perfecto estado",
-                    gato: "Perfecto estado",
-                    palancag: "Requiere reparacion",
-                },
-                {
-                    id: "ab04",
-                    fecha: "04/10/2021",
-                    lucesd: "Perfecto estado",
-                    lucest: "Perfecto estado",
-                    limpiabrisas: "Requiere reparacion",
-                    placa: "Perfecto estado",
-                    tapa: "Perfecto estado",
-                    apoyac: "Perfecto estado",
-                    bocina: "Perfecto estado",
-                    frenos: "Requiere mantenimiento",
-                    frenose: "Perfecto estado",
-                    espejos: "Requiere reparacion",
-                    extintor: "Perfecto estado",
-                    linterna: "Perfecto estado",
-                    banderolas: "Perfecto estado",
-                    gato: "Perfecto estado",
-                    palancag: "Perfecto estado",
-                },
-                {
-                    id: "ab05",
-                    fecha: "05/10/2021",
-                    lucesd: "Perfecto estado",
-                    lucest: "Perfecto estado",
-                    limpiabrisas: "Perfecto estado",
-                    placa: "Perfecto estado",
-                    tapa: "Perfecto estado",
-                    apoyac: "Perfecto estado",
-                    bocina: "Perfecto estado",
-                    frenos: "Perfecto estado",
-                    frenose: "Perfecto estado",
-                    espejos: "Requiere reparacion",
-                    extintor: "Perfecto estado",
-                    linterna: "Perfecto estado",
-                    banderolas: "Perfecto estado",
-                    gato: "Perfecto estado",
-                    palancag: "Perfecto estado",
-                },
-                {
-                    id: "ab06",
-                    fecha: "06/10/2021",
-                    lucesd: "Requiere mantenimiento",
-                    lucest: "Requiere reparacion",
-                    limpiabrisas: "Perfecto estado",
-                    placa: "Perfecto estado",
-                    tapa: "Perfecto estado",
-                    apoyac: "Perfecto estado",
-                    bocina: "Perfecto estado",
-                    frenos: "Requiere mantenimiento",
-                    frenose: "Perfecto estado",
-                    espejos: "Perfecto estado",
-                    extintor: "Perfecto estado",
-                    linterna: "Perfecto estado",
-                    banderolas: "Perfecto estado",
-                    gato: "Requiere mantenimiento",
-                    palancag: "Perfecto estado",
+                    placa: "FGH789",
+                    kilometraje: 345678,
+                    tecnomecanica: "2022-10-10",
+                    soat: "2023-04-12",
+                    tarjeta: 689821357,
                 },
             ];
         },
 
         editItem(item) {
-            this.editedIndex = this.listaPreop.indexOf(item);
+            this.editedIndex = this.preoperacional.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
         deleteItem(item) {
-            this.editedIndex = this.listaPreop.indexOf(item);
+            this.editedIndex = this.preoperacional.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.listaPreop.splice(this.editedIndex, 1);
+            this.preoperacional.splice(this.editedIndex, 1);
             this.closeDelete();
         },
 
@@ -370,11 +233,11 @@ export default {
         save() {
             if (this.editedIndex > -1) {
                 Object.assign(
-                    this.listaPreop[this.editedIndex],
+                    this.preoperacional[this.editedIndex],
                     this.editedItem
                 );
             } else {
-                this.listaPreop.push(this.editedItem);
+                this.preoperacional.push(this.editedItem);
             }
             this.close();
         },

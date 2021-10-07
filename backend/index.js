@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { usuarioRouter } from "./routes/usuarios.js";
+import { preoperacionalRouter } from "./routes/preoperacional.js";
 import morgan from "morgan";
 import cors from "cors";
 import path from "path";
@@ -12,7 +13,7 @@ const app = express();
 app.set('port', process.env.PORT || 4000);
 
 //middlewares
-app.use(morgan('dev'));
+app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))  //para poder usar postman
 app.use(cors());
@@ -23,7 +24,7 @@ app.listen(app.get('port'), () => {
 });
 
 //rutas
-app.use('/api', usuarioRouter);
+app.use('/api', [usuarioRouter, preoperacionalRouter]);
 app.use(express.static(path.join(__dirname, "../public")));
 
 
