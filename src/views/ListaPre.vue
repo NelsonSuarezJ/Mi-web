@@ -274,6 +274,7 @@ export default {
         ],
         preoperacional: [],
         editedIndex: -1,
+        apiURL: "",
         editedItem: {
             placa: "",
             luces: "PE",
@@ -324,11 +325,14 @@ export default {
                     console.log(error);
                 });
         },
-
+        abriEditar() {
+            this.dialog = true;
+        },
         editItem(item) {
             this.editedIndex = this.preoperacional.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
+            this.apiURL = `http://localhost:2000/api/update-pre/${item._id}`;
         },
 
         deleteItem(item) {
@@ -340,7 +344,7 @@ export default {
                 axios
                     .delete(apiURL)
                     .then(() => {
-                        console.log("Se elimino item");
+                        console.log("Se elimino registro");
                         this.initialize();
                     })
                     .catch((error) => {
@@ -355,14 +359,36 @@ export default {
 
         close() {
             this.dialog = false;
+            this.editedIndex = -1;
             this.editedItem.placa = "";
+            this.editedItem.luces = "PE";
+            this.editedItem.frenos = "PE";
+            this.editedItem.espejos = "PE";
+            this.editedItem.gato = "PE";
+            this.editedItem.cinturones = "PE";
+            this.editedItem.aceitemotor = "PE";
+            this.editedItem.liquidofrenos = "PE";
+            this.apiURL = "";
         },
 
         closeDelete() {
+            this.editedIndex = -1;
             this.dialogDelete = false;
         },
 
         save() {
+            if (this.editedIndex > -1) {
+                axios
+                    .put(this.apiURL, { $set: this.editedItem })
+                    .then(() => {
+                        console.log("Se actualizo registro");
+                        this.initialize();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+
             let apiURL = "http://localhost:2000/api/preoperacional";
             axios
                 .post(apiURL, this.editedItem)

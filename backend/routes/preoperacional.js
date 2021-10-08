@@ -19,5 +19,14 @@ preoperacionalRouter.delete("/delete-pre/:id", async (req, res) => {
     res.json(preoperacional)
 })
 
+preoperacionalRouter.put("/update-pre/:id", async (req, res) => {
+    try {
+        const preoperacional = await Preoperacional.findByIdAndUpdate(req.params.id, req.body);
+        res.json(preoperacional)
+    } catch (error) {
+        res.sendStatus(404)
+    }
+})
+
 
 export { preoperacionalRouter };

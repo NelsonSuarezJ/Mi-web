@@ -13,7 +13,7 @@ const app = express();
 app.set('port', process.env.PORT || 4000);
 
 //middlewares
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))  //para poder usar postman
 app.use(cors());
