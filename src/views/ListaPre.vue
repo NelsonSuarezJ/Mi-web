@@ -10,7 +10,7 @@
                 <v-toolbar-title>Lista preoperacional</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
-                <v-dialog v-model="dialog" max-width="500px">
+                <v-dialog v-model="dialog" max-width="800px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             color="primary"
@@ -30,37 +30,174 @@
                         <v-card-text>
                             <v-container>
                                 <v-row>
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" sm="6" lg="4">
                                         <v-text-field
                                             v-model="editedItem.placa"
                                             label="Placa"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <v-text-field
-                                            v-model="editedItem.kilometraje"
-                                            label="Kilometraje"
-                                        ></v-text-field>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[1].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.luces"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <v-text-field
-                                            v-model="editedItem.tecnomecanica"
-                                            label="Tecnomecanica"
-                                            type="date"
-                                        ></v-text-field>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[2].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.frenos"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <v-text-field
-                                            v-model="editedItem.soat"
-                                            label="SOAT"
-                                            type="date"
-                                        ></v-text-field>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[3].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.espejos"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <v-text-field
-                                            v-model="editedItem.tarjeta"
-                                            label="Tarjeta de propiedad"
-                                        ></v-text-field>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[4].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.gato"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[5].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.cinturones"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[6].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.aceitemotor"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <h3>{{ headers[7].text }}</h3>
+                                        <v-radio-group
+                                            column
+                                            v-model="editedItem.liquidofrenos"
+                                        >
+                                            <v-radio
+                                                :label="estados[0].titulo"
+                                                :color="estados[0].color"
+                                                :value="estados[0].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[1].titulo"
+                                                :color="estados[1].color"
+                                                :value="estados[1].abr"
+                                            ></v-radio>
+                                            <v-radio
+                                                :label="estados[2].titulo"
+                                                :color="estados[2].color"
+                                                :value="estados[2].abr"
+                                            ></v-radio>
+                                        </v-radio-group>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -77,7 +214,7 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-dialog v-model="dialogDelete" max-width="650px">
                     <v-card>
                         <v-card-title class="text-h5"
                             >¿Esta seguro que desea eliminar los datos del
@@ -103,7 +240,7 @@
                 </v-dialog>
             </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
             </v-icon>
@@ -125,35 +262,40 @@ export default {
         dialogDelete: false,
         headers: [
             { text: "Placa", value: "placa" },
-            { text: "Kilometraje", value: "kilometraje" },
-            { text: "Tecnomecanica", value: "tecnomecanica" },
-            { text: "SOAT", value: "soat" },
-            { text: "Tarjeta de propiedad", value: "tarjeta" },
+            { text: "Luces", value: "luces" },
+            { text: "Frenos", value: "frenos" },
+            { text: "Espejos", value: "espejos" },
+            { text: "Gato", value: "gato" },
+            { text: "Cinturones", value: "cinturones" },
+            { text: "Aceite del motor", value: "aceitemotor" },
+            { text: "Liquido de frenos", value: "liquidofrenos" },
+            { text: "Fecha de creacion", value: "creado" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
         preoperacional: [],
         editedIndex: -1,
         editedItem: {
             placa: "",
-            kilometraje: 0,
-            tecnomecanica: "",
-            soat: "",
-            tarjeta: 0,
+            luces: "PE",
+            frenos: "PE",
+            espejos: "PE",
+            gato: "PE",
+            cinturones: "PE",
+            aceitemotor: "PE",
+            liquidofrenos: "PE",
         },
-        defaultItem: {
-            placa: "",
-            kilometraje: "",
-            tecnomecanica: "",
-            soat: "",
-            tarjeta: "",
-        },
+        estados: [
+            { titulo: "Perfecto estado", abr: "PE", color: "success" },
+            { titulo: "Requiere mantenimiento", abr: "RM", color: "info" },
+            { titulo: "Requiere reparacion", abr: "RR", color: "error" },
+        ],
     }),
 
     computed: {
         formTitle() {
             return this.editedIndex === -1
-                ? "Nuevo vehiculo"
-                : "Editar vehiculo";
+                ? "Nuevo registro"
+                : "Editar registro";
         },
     },
 
@@ -172,29 +314,15 @@ export default {
 
     methods: {
         initialize() {
-            this.preoperacional = [
-                {
-                    placa: "ABC123",
-                    kilometraje: 123456,
-                    tecnomecanica: "2025-08-01",
-                    soat: "2024-10-22",
-                    tarjeta: 578452355,
-                },
-                {
-                    placa: "CDE456",
-                    kilometraje: 234567,
-                    tecnomecanica: "2022-01-02",
-                    soat: "2022-12-24",
-                    tarjeta: 475689121,
-                },
-                {
-                    placa: "FGH789",
-                    kilometraje: 345678,
-                    tecnomecanica: "2022-10-10",
-                    soat: "2023-04-12",
-                    tarjeta: 689821357,
-                },
-            ];
+            let apiURL = "http://localhost:2000/api/preoperacional";
+            axios
+                .get(apiURL)
+                .then((res) => {
+                    this.preoperacional = res.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
 
         editItem(item) {
@@ -204,41 +332,47 @@ export default {
         },
 
         deleteItem(item) {
-            this.editedIndex = this.preoperacional.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialogDelete = true;
+            if (
+                window.confirm("¿Esta seguro que quiere eliminar el registro?")
+            ) {
+                let apiURL = `http://localhost:2000/api/delete-pre/${item._id}`;
+
+                axios
+                    .delete(apiURL)
+                    .then(() => {
+                        console.log("Se elimino item");
+                        this.initialize();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
         },
 
         deleteItemConfirm() {
-            this.preoperacional.splice(this.editedIndex, 1);
             this.closeDelete();
         },
 
         close() {
             this.dialog = false;
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            });
+            this.editedItem.placa = "";
         },
 
         closeDelete() {
             this.dialogDelete = false;
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            });
         },
 
         save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.preoperacional[this.editedIndex],
-                    this.editedItem
-                );
-            } else {
-                this.preoperacional.push(this.editedItem);
-            }
+            let apiURL = "http://localhost:2000/api/preoperacional";
+            axios
+                .post(apiURL, this.editedItem)
+                .then((res) => {
+                    this.initialize();
+                    this.editedItem.placa = "";
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             this.close();
         },
     },

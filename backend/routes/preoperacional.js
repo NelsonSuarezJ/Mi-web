@@ -10,7 +10,8 @@ preoperacionalRouter.get('/preoperacional', async (req, res) => {
 
 preoperacionalRouter.post("/preoperacional", async (req, res) => {
     const preoperacional = await Preoperacional.create(req.body);
-    res.json(preoperacional)
+    console.log(preoperacional);
+    res.json({ respuesta: "Datos ingresados" })
 })
 
 preoperacionalRouter.delete("/delete-pre/:id", async (req, res) => {

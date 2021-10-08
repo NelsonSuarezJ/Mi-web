@@ -16,5 +16,5 @@ const preoperacionalSchema = new Schema({
     collection: 'preoperacional'
 });
 
-const Preoperacional = mongoose.model('Preoperacioanl', preoperacionalSchema);
+const Preoperacional = mongoose.model('Preoperacional', preoperacionalSchema);
 export { Preoperacional };
