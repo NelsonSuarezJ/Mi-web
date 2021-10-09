@@ -4,23 +4,23 @@
             app
             dense
             dark
-            color="orange"
+            color="orange darken-2"
             prominent
-            src="https://picsum.photos/1920/1080?random"
             shrink-on-scroll
+            flat
+            hide-on-scroll
         >
             <v-app-bar-nav-icon
                 @click.stop="drawer = !drawer"
             ></v-app-bar-nav-icon>
-            <v-toolbar-title>Administrador</v-toolbar-title>
+            <v-toolbar-title>ADMINISTRADOR</v-toolbar-title>
 
             <v-spacer></v-spacer>
         </v-app-bar>
 
         <v-navigation-drawer
             v-model="drawer"
-            temporary
-            color="blue darken-3"
+            color="blue-grey darken-3"
             dark
             app
         >
@@ -57,7 +57,7 @@ export default {
     name: "BarraAdmin",
     data() {
         return {
-            drawer: false,
+            drawer: null,
             group: null,
             menu: [
                 {
@@ -76,11 +76,6 @@ export default {
                     url: "/administrador/adminconductor",
                 },
                 {
-                    icono: "mdi-shield-account-outline",
-                    texto: "Administradores",
-                    url: "/administrador/adminadmin",
-                },
-                {
                     icono: "mdi-logout",
                     texto: "Cerrar sesion",
                     url: "/",
@@ -88,10 +83,10 @@ export default {
             ],
         };
     },
-    watch: {
-        group() {
-            this.drawer = false;
-        },
-    },
+    // watch: {
+    //     group() {
+    //         this.drawer = false;
+    //     },
+    // },
 };
 </script>
