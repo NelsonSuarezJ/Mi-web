@@ -33,6 +33,6 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect(uri).then(() => {
-        console.log("conexion exitosa")
+        console.log("Conexion exitosa a Mongo")
     });
 }

@@ -325,12 +325,10 @@ export default {
                     console.log(error);
                 });
         },
-        abriEditar() {
-            this.dialog = true;
-        },
         editItem(item) {
-            this.editedIndex = this.preoperacional.indexOf(item);
+            this.editedIndex = this.preoperacional.indexOf(item); //retorna el indice donde esta el item
             this.editedItem = Object.assign({}, item);
+            delete this.editedItem._id;
             this.dialog = true;
             this.apiURL = `http://localhost:2000/api/update-pre/${item._id}`;
         },
@@ -379,7 +377,7 @@ export default {
         save() {
             if (this.editedIndex > -1) {
                 axios
-                    .put(this.apiURL, { $set: this.editedItem })
+                    .put(this.apiURL, this.editedItem)
                     .then(() => {
                         console.log("Se actualizo registro");
                         this.initialize();
@@ -387,18 +385,18 @@ export default {
                     .catch((error) => {
                         console.log(error);
                     });
+            } else {
+                let apiURL = "http://localhost:2000/api/preoperacional";
+                axios
+                    .post(apiURL, this.editedItem)
+                    .then((res) => {
+                        console.log("Se creo un registro");
+                        this.initialize();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             }
-
-            let apiURL = "http://localhost:2000/api/preoperacional";
-            axios
-                .post(apiURL, this.editedItem)
-                .then((res) => {
-                    this.initialize();
-                    this.editedItem.placa = "";
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
             this.close();
         },
     },

@@ -10,8 +10,7 @@ preoperacionalRouter.get('/preoperacional', async (req, res) => {
 
 preoperacionalRouter.post("/preoperacional", async (req, res) => {
     const preoperacional = await Preoperacional.create(req.body);
-    console.log(preoperacional);
-    res.json({ respuesta: "Datos ingresados" })
+    res.json(preoperacional)
 })
 
 preoperacionalRouter.delete("/delete-pre/:id", async (req, res) => {
@@ -20,13 +19,8 @@ preoperacionalRouter.delete("/delete-pre/:id", async (req, res) => {
 })
 
 preoperacionalRouter.put("/update-pre/:id", async (req, res) => {
-    try {
-        const preoperacional = await Preoperacional.findByIdAndUpdate(req.params.id, req.body);
-        res.json(preoperacional)
-    } catch (error) {
-        res.sendStatus(404)
-    }
+    const preoperacional = await Preoperacional.findByIdAndUpdate(req.params.id, req.body)
+    res.json({ mensaje: "Se actualizo el registro" }) //esto se ve en postman
 })
-
 
 export { preoperacionalRouter };
