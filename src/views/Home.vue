@@ -1,7 +1,7 @@
 <template>
     <div>
         <barra-inicio />
-        <v-main class="grey lighten-2">
+        <v-main class="blue-grey darken-4">
             <v-container class="py-0">
                 <router-view></router-view>
             </v-container>
@@ -13,6 +13,7 @@
 import BarraInicio from "../components/BarraInicio.vue";
 
 export default {
+    name: "Home",
     components: { BarraInicio },
 };
 </script>

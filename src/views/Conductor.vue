@@ -1,7 +1,7 @@
 <template>
     <div>
         <barra-user />
-        <v-main class="grey lighten-2">
+        <v-main class="blue-grey darken-4">
             <v-container>
                 <router-view></router-view>
             </v-container>

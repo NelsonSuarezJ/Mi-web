@@ -30,15 +30,8 @@ const routes = [
     path: '/conductor',
     name: 'Conductor',
     component: () => import(/* webpackChunkName: "about" */ '../views/Conductor.vue'),
-    redirect: '/conductor/formpre',
+    redirect: '/conductor/listapre',
     children: [
-      {
-        path: 'formpre',
-        name: 'FormPre',
-        component: () => import(/* webpackChunkName: "about" */ '../views/FormPre.vue')
-      },
-      ,
-
       {
         path: 'listapre',
         name: 'ListaPre',
@@ -68,12 +61,6 @@ const routes = [
         path: 'adminconductor',
         name: 'AdminConductor',
         component: () => import(/* webpackChunkName: "about" */ '../views/AdminConductor.vue')
-      }
-      ,
-      {
-        path: 'adminadmin',
-        name: 'AdminAdmin',
-        component: () => import(/* webpackChunkName: "about" */ '../views/AdminAdmin.vue')
       }
     ]
   },
