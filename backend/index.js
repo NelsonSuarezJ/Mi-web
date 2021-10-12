@@ -10,7 +10,8 @@ import path from "path";
 //config
 dotenv.config();
 const app = express();
-app.set('port', process.env.PORT || 4000);
+//app.set('port', process.env.PORT || 4000);
+const port = process.env.PORT || '4000';
 
 //middlewares
 app.use(morgan('dev'));
@@ -19,8 +20,8 @@ app.use(express.urlencoded({ extended: true }))  //para poder usar postman
 app.use(cors());
 
 //escucha
-app.listen(app.get('port'), () => {
-    console.log(`Escuchando en el puerto: ${app.get('port')}`)
+app.listen(port, () => {
+    console.log(`Escuchando en el puerto: ${port}`)
 });
 
 //rutas
