@@ -25,7 +25,7 @@ app.listen(app.get('port'), () => {
 
 //rutas
 app.use('/api', [usuarioRouter, preoperacionalRouter]);
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 
 //conexion a BD
