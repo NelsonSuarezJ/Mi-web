@@ -13,12 +13,12 @@ preoperacionalRouter.post("/preoperacional", async (req, res) => {
     res.json(preoperacional)
 })
 
-preoperacionalRouter.delete("/delete-pre/:id", async (req, res) => {
+preoperacionalRouter.delete("/preoperacional/:id", async (req, res) => {
     const preoperacional = await Preoperacional.findByIdAndRemove(req.params.id);
     res.json(preoperacional)
 })
 
-preoperacionalRouter.put("/update-pre/:id", async (req, res) => {
+preoperacionalRouter.put("/preoperacional/:id", async (req, res) => {
     const preoperacional = await Preoperacional.findByIdAndUpdate(req.params.id, req.body)
     res.json({ mensaje: "Se actualizo el registro" }) //esto se ve en postman
 })

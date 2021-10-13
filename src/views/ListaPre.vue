@@ -214,10 +214,10 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="650px">
+                <v-dialog v-model="dialogDelete" max-width="530px">
                     <v-card>
                         <v-card-title class="text-h5"
-                            >¿Esta seguro que desea eliminar los datos del
+                            >¿Esta seguro que desea eliminar el
                             registro?</v-card-title
                         >
                         <v-card-actions>
@@ -253,7 +253,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import {
+    getAll,
+    createListaPre,
+    deleteListaPre,
+    updateListaPre,
+} from "../controllers/preoperacionalController";
 
 export default {
     name: "ListaPre",
@@ -274,7 +279,7 @@ export default {
         ],
         preoperacional: [],
         editedIndex: -1,
-        apiURL: "",
+        id: "",
         editedItem: {
             placa: "",
             luces: "PE",
@@ -315,9 +320,7 @@ export default {
 
     methods: {
         initialize() {
-            let apiURL = "http://localhost:2000/api/preoperacional";
-            axios
-                .get(apiURL)
+            getAll()
                 .then((res) => {
                     this.preoperacional = res.data;
                 })
@@ -325,33 +328,29 @@ export default {
                     console.log(error);
                 });
         },
+
         editItem(item) {
             this.editedIndex = this.preoperacional.indexOf(item); //retorna el indice donde esta el item
             this.editedItem = Object.assign({}, item);
             delete this.editedItem._id;
             this.dialog = true;
-            this.apiURL = `http://localhost:2000/api/update-pre/${item._id}`;
+            this.id = item._id;
         },
 
         deleteItem(item) {
-            if (
-                window.confirm("¿Esta seguro que quiere eliminar el registro?")
-            ) {
-                let apiURL = `http://localhost:2000/api/delete-pre/${item._id}`;
-
-                axios
-                    .delete(apiURL)
-                    .then(() => {
-                        console.log("Se elimino registro");
-                        this.initialize();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }
+            this.dialogDelete = true;
+            this.id = item._id;
         },
 
         deleteItemConfirm() {
+            deleteListaPre(this.id)
+                .then(() => {
+                    console.log("Se elimino registro");
+                    this.initialize();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             this.closeDelete();
         },
 
@@ -366,7 +365,7 @@ export default {
             this.editedItem.cinturones = "PE";
             this.editedItem.aceitemotor = "PE";
             this.editedItem.liquidofrenos = "PE";
-            this.apiURL = "";
+            this.id = "";
         },
 
         closeDelete() {
@@ -376,8 +375,7 @@ export default {
 
         save() {
             if (this.editedIndex > -1) {
-                axios
-                    .put(this.apiURL, this.editedItem)
+                updateListaPre(this.id, this.editedItem)
                     .then(() => {
                         console.log("Se actualizo registro");
                         this.initialize();
@@ -386,10 +384,8 @@ export default {
                         console.log(error);
                     });
             } else {
-                let apiURL = "http://localhost:2000/api/preoperacional";
-                axios
-                    .post(apiURL, this.editedItem)
-                    .then((res) => {
+                createListaPre(this.editedItem)
+                    .then(() => {
                         console.log("Se creo un registro");
                         this.initialize();
                     })

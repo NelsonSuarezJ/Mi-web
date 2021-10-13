@@ -10,8 +10,6 @@ import path from "path";
 //config
 dotenv.config();
 const app = express();
-//app.set('port', process.env.PORT || 4000);
-const port = process.env.PORT || '4000';
 
 //middlewares
 app.use(morgan('dev'));
@@ -19,15 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))  //para poder usar postman
 app.use(cors());
 
-//escucha
-app.listen(port, () => {
-    console.log(`Escuchando en el puerto: ${port}`)
-});
-
 //rutas
 app.use('/api', [usuarioRouter, preoperacionalRouter]);
-app.use(express.static(path.join(__dirname, "public")));
 
+//configuracion produccion
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "public")));
+    app.use("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "/public/index.html"))
+    });
+}
 
 //conexion a BD
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.lsrlm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
@@ -37,3 +36,10 @@ async function main() {
         console.log("Conexion exitosa a Mongo")
     });
 }
+
+//escucha
+//app.set('port', process.env.PORT || 4000);
+const port = process.env.PORT || '4000';
+app.listen(port, () => {
+    console.log(`Escuchando en el puerto: ${port}`)
+});
