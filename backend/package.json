@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "babel index.js -o index-compilado.js",
     "start": "babel-node index.js",
     "dev": "nodemon index.js",
     "devbabel": "nodemon index.js --exec babel-node",
-    "gitpush": "git subtree push --prefix backend heroku master"
+    "gitpush": "cd.. && git subtree push --prefix backend heroku master"
   },
   "keywords": [],
   "author": "",
