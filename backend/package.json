@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel index.js -o index-compilado.js",
-    "start": "babel-node index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "devbabel": "nodemon index.js --exec babel-node",
     "gitpush": "cd.. && git subtree push --prefix backend heroku master"
