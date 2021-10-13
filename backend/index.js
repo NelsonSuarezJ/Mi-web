@@ -40,6 +40,6 @@ async function main() {
 //escucha
 //const port = process.env.PORT || '4000';
 app.set('PORT', process.env.PORT || 3000);
-app.listen(app.get('port'), () => {
+app.listen(app.get('PORT'), () => {
     console.log(`Escuchando en el puerto: ${app.get('PORT')}`)
 });
