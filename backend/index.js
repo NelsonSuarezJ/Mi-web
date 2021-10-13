@@ -38,8 +38,8 @@ async function main() {
 }
 
 //escucha
-//app.set('port', process.env.PORT || 4000);
-const port = process.env.PORT || '4000';
-app.listen(port, () => {
-    console.log(`Escuchando en el puerto: ${port}`)
+//const port = process.env.PORT || '4000';
+app.set('PORT', process.env.PORT || 3000);
+app.listen(app.get('port'), () => {
+    console.log(`Escuchando en el puerto: ${app.get('PORT')}`)
 });

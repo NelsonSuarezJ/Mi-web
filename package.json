@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prod": "rmdir /q /s .\\backend\\public && vue-cli-service build --mode production --dest .\\backend\\public"
   },
   "dependencies": {
     "axios": "^0.22.0",
