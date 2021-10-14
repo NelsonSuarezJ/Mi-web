@@ -36,8 +36,6 @@
                                             label="Placa"
                                         ></v-text-field>
                                     </v-col>
-                                </v-row>
-                                <v-row>
                                     <v-col cols="12" sm="6" lg="4">
                                         <v-text-field
                                             v-model="editedItem.kilometraje"
@@ -119,7 +117,7 @@
 
 <script>
 import {
-    getAll,
+    getAllV,
     createVehiculo,
     deleteVehiculo,
     updateVehiculo,
@@ -178,7 +176,7 @@ export default {
 
     methods: {
         initialize() {
-            getAll()
+            getAllV()
                 .then((res) => {
                     this.vehiculos = res.data;
                 })
