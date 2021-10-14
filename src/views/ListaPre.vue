@@ -31,10 +31,11 @@
                             <v-container>
                                 <v-row>
                                     <v-col cols="12" sm="6" lg="4">
-                                        <v-text-field
+                                        <v-autocomplete
                                             v-model="editedItem.placa"
+                                            :items="placas"
                                             label="Placa"
-                                        ></v-text-field>
+                                        ></v-autocomplete>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -259,6 +260,7 @@ import {
     deleteListaPre,
     updateListaPre,
 } from "../controllers/preoperacionalController";
+import { getAllV } from "../controllers/vehiculoController";
 
 export default {
     name: "ListaPre",
@@ -278,6 +280,8 @@ export default {
             { text: "Acciones", value: "actions", sortable: false },
         ],
         preoperacional: [],
+        vehiculos: [],
+        placas: [],
         editedIndex: -1,
         id: "",
         editedItem: {
@@ -323,6 +327,16 @@ export default {
             getAll()
                 .then((res) => {
                     this.preoperacional = res.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            getAllV()
+                .then((res) => {
+                    this.vehiculos = res.data;
+                    for (const key in this.vehiculos) {
+                        this.placas[key] = this.vehiculos[key].placa;
+                    }
                 })
                 .catch((error) => {
                     console.log(error);

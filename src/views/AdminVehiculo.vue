@@ -7,10 +7,10 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Lista de Vehiculos</v-toolbar-title>
+                <v-toolbar-title>Lista de vehiculos</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
-                <v-dialog v-model="dialog" max-width="500px">
+                <v-dialog v-model="dialog" max-width="800px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             color="primary"
@@ -19,7 +19,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            Nuevo vehiculo
+                            Nuevo registro
                         </v-btn>
                     </template>
                     <v-card>
@@ -30,36 +30,36 @@
                         <v-card-text>
                             <v-container>
                                 <v-row>
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" sm="6" lg="4">
                                         <v-text-field
                                             v-model="editedItem.placa"
                                             label="Placa"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" sm="6" lg="4">
                                         <v-text-field
                                             v-model="editedItem.kilometraje"
                                             label="Kilometraje"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" sm="6" lg="4">
                                         <v-text-field
-                                            v-model="editedItem.tecnomecanica"
-                                            label="Tecnomecanica"
+                                            v-model="editedItem.tarjeta"
+                                            label="Tarjeta de propiedad"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" lg="4">
+                                        <v-text-field
+                                            v-model="editedItem.tecnoMecanica"
+                                            label="TecnoMecanica"
                                             type="date"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="12" sm="6" lg="4">
                                         <v-text-field
                                             v-model="editedItem.soat"
                                             label="SOAT"
                                             type="date"
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <v-text-field
-                                            v-model="editedItem.tarjeta"
-                                            label="Tarjeta de propiedad"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
@@ -77,11 +77,11 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-dialog v-model="dialogDelete" max-width="530px">
                     <v-card>
                         <v-card-title class="text-h5"
-                            >¿Esta seguro que desea eliminar los datos del
-                            vehiculo?</v-card-title
+                            >¿Esta seguro que desea eliminar el
+                            registro?</v-card-title
                         >
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -103,7 +103,7 @@
                 </v-dialog>
             </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
             </v-icon>
@@ -116,42 +116,48 @@
 </template>
 
 <script>
+import {
+    getAllV,
+    createVehiculo,
+    deleteVehiculo,
+    updateVehiculo,
+} from "../controllers/vehiculoController";
+
 export default {
-    name: "AdvinVehiculo",
+    name: "AdminVehiculo",
     data: () => ({
         dialog: false,
         dialogDelete: false,
         headers: [
             { text: "Placa", value: "placa" },
             { text: "Kilometraje", value: "kilometraje" },
-            { text: "Tecnomecanica", value: "tecnomecanica" },
+            { text: "Tarjeta", value: "tarjeta" },
+            { text: "TecnoMecanica", value: "tecnoMecanica" },
             { text: "SOAT", value: "soat" },
-            { text: "Tarjeta de propiedad", value: "tarjeta" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
         vehiculos: [],
         editedIndex: -1,
+        id: "",
         editedItem: {
             placa: "",
-            kilometraje: 0,
-            tecnomecanica: "",
-            soat: "",
-            tarjeta: 0,
-        },
-        defaultItem: {
-            placa: "",
             kilometraje: "",
-            tecnomecanica: "",
-            soat: "",
             tarjeta: "",
+            tecnoMecanica: null,
+            soat: null,
         },
+        estados: [
+            { titulo: "Perfecto estado", abr: "PE", color: "success" },
+            { titulo: "Requiere mantenimiento", abr: "RM", color: "info" },
+            { titulo: "Requiere reparacion", abr: "RR", color: "error" },
+        ],
     }),
 
     computed: {
         formTitle() {
             return this.editedIndex === -1
-                ? "Nuevo vehiculo"
-                : "Editar vehiculo";
+                ? "Nuevo registro"
+                : "Editar registro";
         },
     },
 
@@ -170,72 +176,78 @@ export default {
 
     methods: {
         initialize() {
-            this.vehiculos = [
-                {
-                    placa: "ABC123",
-                    kilometraje: 123456,
-                    tecnomecanica: "2025-08-01",
-                    soat: "2024-10-22",
-                    tarjeta: 578452355,
-                },
-                {
-                    placa: "CDE456",
-                    kilometraje: 234567,
-                    tecnomecanica: "2022-01-02",
-                    soat: "2022-12-24",
-                    tarjeta: 475689121,
-                },
-                {
-                    placa: "FGH789",
-                    kilometraje: 345678,
-                    tecnomecanica: "2022-10-10",
-                    soat: "2023-04-12",
-                    tarjeta: 689821357,
-                },
-            ];
+            getAllV()
+                .then((res) => {
+                    this.vehiculos = res.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
 
         editItem(item) {
-            this.editedIndex = this.vehiculos.indexOf(item);
+            this.editedIndex = this.vehiculos.indexOf(item); //retorna el indice donde esta el item
             this.editedItem = Object.assign({}, item);
+            delete this.editedItem._id;
             this.dialog = true;
+            this.id = item._id;
         },
 
         deleteItem(item) {
-            this.editedIndex = this.vehiculos.indexOf(item);
-            this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
+            this.id = item._id;
         },
 
         deleteItemConfirm() {
-            this.vehiculos.splice(this.editedIndex, 1);
+            deleteVehiculo(this.id)
+                .then(() => {
+                    console.log("Se elimino registro");
+                    this.initialize();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             this.closeDelete();
         },
 
         close() {
             this.dialog = false;
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            });
+            this.editedIndex = -1;
+            this.editedItem.placa = "";
+            this.editedItem.luces = "PE";
+            this.editedItem.frenos = "PE";
+            this.editedItem.espejos = "PE";
+            this.editedItem.gato = "PE";
+            this.editedItem.cinturones = "PE";
+            this.editedItem.aceitemotor = "PE";
+            this.editedItem.liquidofrenos = "PE";
+            this.id = "";
         },
 
         closeDelete() {
+            this.editedIndex = -1;
             this.dialogDelete = false;
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            });
         },
 
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(
-                    this.vehiculos[this.editedIndex],
-                    this.editedItem
-                );
+                updateVehiculo(this.id, this.editedItem)
+                    .then(() => {
+                        console.log("Se actualizo registro");
+                        this.initialize();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             } else {
-                this.vehiculos.push(this.editedItem);
+                createVehiculo(this.editedItem)
+                    .then(() => {
+                        console.log("Se creo un registro");
+                        this.initialize();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             }
             this.close();
         },
