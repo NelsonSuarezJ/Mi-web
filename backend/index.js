@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { usuarioRouter } from "./routes/usuarios.js";
 import { preoperacionalRouter } from "./routes/preoperacional.js";
+import { vehiculoRouter } from "./routes/vehiculo.js";
 import morgan from "morgan";
 import cors from "cors";
 import path from "path";
@@ -18,7 +19,7 @@ app.use(express.urlencoded({ extended: true }))  //para poder usar postman
 app.use(cors());
 
 //rutas
-app.use('/api', [usuarioRouter, preoperacionalRouter]);
+app.use('/api', [usuarioRouter, preoperacionalRouter, vehiculoRouter]);
 
 //configuracion produccion
 if (process.env.NODE_ENV === "production") {
